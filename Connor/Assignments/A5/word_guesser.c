@@ -12,7 +12,12 @@
 void read_words(char * filepointer, char ** buffer, int * words);
 int main(int argc, char ** argv)
 {
-    
+    if(argc != 3)
+    {
+        fprintf(stderr, "Please provide a word file, and output file.\n");
+        return EXIT_FAILURE;
+    }
+
     char ** buffer = malloc(sizeof(char *) * MAXLEN);
     for (int i = 0; i < MAXLEN; i++)
     {
@@ -47,6 +52,8 @@ void read_words(char * file, char ** buffer, int * words)
 
     fclose(fptr);
 }
+
+void print_words(char * file);
 
 void eraseMemory(char ** arr, int row)
 {
