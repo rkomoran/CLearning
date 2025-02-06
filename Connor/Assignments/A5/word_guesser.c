@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 // randomly select a 5-letter word from a word doc.
 // store it as the "secret" word
@@ -8,22 +10,24 @@
 #define MAXWORDS 100
 
 
-//TODO implement rand to select secret word. incorportate file output. make a Makefile
+//TODO create game loop, incorporate game logic. incorportate file output. make a Makefile
 void read_words(char * filepointer, char ** buffer, int * words);
 int main(int argc, char ** argv)
 {
-    if(argc != 3)
+    if(argc != 2)
     {
         fprintf(stderr, "Please provide a word file, and output file.\n");
         return EXIT_FAILURE;
     }
+    
+    srand(time(NULL));
 
     char ** buffer = malloc(sizeof(char *) * MAXLEN);
+    int words = 0;
     for (int i = 0; i < MAXLEN; i++)
     {
         *(buffer + i) = malloc(sizeof(char) * MAXWORDS);
     }
-    int words = 0;
 
     read_words(argv[1], buffer, &words);
     if (words < 2)
@@ -31,6 +35,10 @@ int main(int argc, char ** argv)
         fprintf(stderr, "Must be >2 words");
         EXIT_FAILURE;
     }
+
+    char * secret_word = malloc(sizeof(char) * MAXLEN);
+    strcpy(secret_word, buffer[rand() % words]);
+    printf("Secret word: %s\n", secret_word);
     return EXIT_SUCCESS;
 }
 
