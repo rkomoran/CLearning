@@ -1,1 +1,1 @@
-segmentation faults amirite
+segmentation faults am I right fellas?
